@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  background: #0a0a0f;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  display: flex;
+}
+
+/* ── LEFT ── */
+.left {
+  width: 560px;
+  height: 720px;
+  padding: 48px 52px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #16132a;
+  position: relative;
+}
+
+.left::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(180deg, #8270e0, #6655c0);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border: 1px solid rgba(130, 112, 224, 0.35);
+  background: rgba(130, 112, 224, 0.08);
+  border-radius: 4px;
+  color: #8270e0;
+  font-size: 11px;
+  letter-spacing: 3px;
+  width: fit-content;
+  margin-bottom: 28px;
+}
+
+h1 {
+  font-size: 76px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -3px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.h1-line2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #8270e0;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.underline {
+  width: 220px;
+  height: 3px;
+  background: linear-gradient(90deg, #8270e0, #6655c0);
+  border-radius: 2px;
+  margin-bottom: 24px;
+}
+
+.sub {
+  font-size: 16px;
+  color: #94a3b8;
+  font-weight: 400;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: auto;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #8892a4;
+}
+
+.feature::before {
+  content: '▸';
+  color: #8270e0;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.divider {
+  height: 1px;
+  background: #1a1830;
+  margin: 20px 0;
+}
+
+.stats {
+  display: flex;
+  gap: 0;
+}
+
+.stat {
+  flex: 1;
+  padding-right: 20px;
+  border-right: 1px solid #1a1830;
+  margin-right: 20px;
+}
+.stat:last-child { border-right: none; margin-right: 0; }
+
+.stat-num {
+  font-size: 36px;
+  font-weight: 700;
+  color: #8270e0;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: #2e2a4a;
+  letter-spacing: 2px;
+}
+
+.badge {
+  margin-top: 18px;
+  padding: 7px 18px;
+  border: 1px solid rgba(130, 112, 224, 0.2);
+  background: #0d0a1f;
+  border-radius: 4px;
+  color: #8270e0;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-align: center;
+  width: fit-content;
+}
+
+/* ── RIGHT ── */
+.right {
+  flex: 1;
+  height: 720px;
+  background: #0d0d18;
+  display: flex;
+  flex-direction: column;
+}
+
+.titlebar {
+  height: 38px;
+  background: #13121f;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 8px;
+  border-bottom: 1px solid #1e1c30;
+  flex-shrink: 0;
+}
+
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot-r { background: #ff5f57; }
+.dot-y { background: #ffbd2e; }
+.dot-g { background: #28ca41; }
+
+.filename {
+  margin: 0 auto;
+  color: #3a3760;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* PROCESS BOARD */
+.board {
+  flex: 1;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+}
+
+.board-header {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr;
+  gap: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #1e1c30;
+  margin-bottom: 4px;
+}
+
+.col-head {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #3a3760;
+  font-weight: 600;
+}
+
+.phase-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr;
+  gap: 0;
+  padding: 11px 0;
+  border-bottom: 1px solid #13121f;
+  align-items: start;
+}
+
+.phase-row:last-child { border-bottom: none; }
+
+.phase-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #8270e0;
+  padding-top: 1px;
+}
+
+.methods {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.method {
+  font-size: 12px;
+  color: #5a5880;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.method::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #2e2a4a;
+  flex-shrink: 0;
+}
+
+.outputs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.output {
+  font-size: 12px;
+  color: #7a7898;
+}
+
+/* connector arrow between phases */
+.connector {
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 8px;
+  height: 14px;
+}
+
+.connector-line {
+  width: 2px;
+  height: 14px;
+  background: #1e1c30;
+  margin-left: 38px;
+}
+
+/* bottom bar */
+.board-footer {
+  border-top: 1px solid #1e1c30;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #2e2a4a;
+}
+
+.footer-tag {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #8270e0;
+  border: 1px solid rgba(130,112,224,0.2);
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+</style>
+</head>
+<body>
+
+<!-- LEFT -->
+<div class="left">
+  <div class="tag">PRACTICAL COURSE</div>
+  <h1>UX</h1>
+  <div class="h1-line2">+ Lean Six Sigma</div>
+  <div class="underline"></div>
+  <div class="sub">
+    Research. Design. Measure.<br>
+    The complete system for products people use.
+  </div>
+  <div class="feature-list">
+    <div class="feature">User research, personas, and journey mapping</div>
+    <div class="feature">Don Norman's 7 usability principles</div>
+    <div class="feature">Heuristic analysis with worksheet</div>
+    <div class="feature">Wireframing + Octalysis framework</div>
+    <div class="feature">DMAIC applied to a real UX project</div>
+    <div class="feature">Black hat vs. white hat design</div>
+    <div class="feature">Form design and friction reduction</div>
+  </div>
+  <div class="divider"></div>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">MODULES</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-label">EXERCISES</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5</div>
+      <div class="stat-label">TEMPLATES</div>
+    </div>
+  </div>
+  <div class="badge">INCLUDES FULL DMAIC CASE STUDY</div>
+</div>
+
+<!-- RIGHT: DMAIC + UX Process Board -->
+<div class="right">
+  <div class="titlebar">
+    <div class="dot dot-r"></div>
+    <div class="dot dot-y"></div>
+    <div class="dot dot-g"></div>
+    <div class="filename">dmaic-ux-process.md</div>
+  </div>
+
+  <div class="board">
+    <div class="board-header">
+      <div class="col-head">PHASE</div>
+      <div class="col-head">UX METHODS</div>
+      <div class="col-head">OUTPUT</div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-tag">DEFINE</div>
+      <div class="methods">
+        <div class="method">Voice of Customer</div>
+        <div class="method">Project Charter</div>
+        <div class="method">Affinity Diagram</div>
+      </div>
+      <div class="outputs">
+        <div class="output">Problem Statement</div>
+        <div class="output">Persona Brief</div>
+        <div class="output">Research Plan</div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-tag">MEASURE</div>
+      <div class="methods">
+        <div class="method">User Interviews</div>
+        <div class="method">Analytics Baseline</div>
+        <div class="method">KPI Mapping</div>
+      </div>
+      <div class="outputs">
+        <div class="output">Persona Document</div>
+        <div class="output">Journey Map</div>
+        <div class="output">Baseline Data</div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-tag">ANALYZE</div>
+      <div class="methods">
+        <div class="method">Heuristic Analysis</div>
+        <div class="method">Fishbone Diagram</div>
+        <div class="method">Cognitive Load Audit</div>
+      </div>
+      <div class="outputs">
+        <div class="output">Root Cause List</div>
+        <div class="output">Friction Points</div>
+        <div class="output">Gap Analysis</div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-tag">IMPROVE</div>
+      <div class="methods">
+        <div class="method">Wireframing</div>
+        <div class="method">Prototype Testing</div>
+        <div class="method">Gamification Design</div>
+      </div>
+      <div class="outputs">
+        <div class="output">Validated Prototype</div>
+        <div class="output">Iterated Flows</div>
+        <div class="output">Form Redesign</div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-tag">CONTROL</div>
+      <div class="methods">
+        <div class="method">Control Charts</div>
+        <div class="method">SOP Documentation</div>
+        <div class="method">Monitoring Plan</div>
+      </div>
+      <div class="outputs">
+        <div class="output">Measured Improvement</div>
+        <div class="output">Shipped Dashboard</div>
+        <div class="output">After State</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="board-footer">
+    <span class="footer-label">ATHARUX · LEARNFROM.ATHARUX.COM</span>
+    <span class="footer-tag">UX + SIX SIGMA · $37</span>
+  </div>
+</div>
+
+</body>
+</html>
